@@ -135,7 +135,7 @@ namespace
         }
 
         if (file_input->payload_commands.empty()) {
-            return false;
+            return static_cast<VCD_CALLBACK_BOOL_RETURN_TYPE>(false);
         }
         std::string const &current_command = file_input->payload_commands.front();
         std::int64_t const timestamp_from_command =
@@ -235,7 +235,7 @@ namespace
 
         rec->rec_header.packet_header.caplen = line_buf.size();
         rec->rec_header.packet_header.len    = line_buf.size();
-        return true;
+        return static_cast<VCD_CALLBACK_BOOL_RETURN_TYPE>(true);
     }
 
     /*
@@ -250,7 +250,7 @@ namespace
     {
         auto *const file_input = static_cast<vcd_file_input::VcdFileInput *>(wth->priv);
         vcd_read_packet(rec, buf, file_input, seek_off);
-        return true;
+        return static_cast<VCD_CALLBACK_BOOL_RETURN_TYPE>(true);
     }
 
     /*
@@ -270,7 +270,7 @@ namespace
             .wslua_data     = nullptr,
         };
 
-        wtap_register_open_info(&oi, false);
+        wtap_register_open_info(&oi, static_cast<VCD_CALLBACK_BOOL_RETURN_TYPE>(false));
 
 #if VCD_WIRESHARK_VERSION_GE(3, 6)
         static constexpr std::array<supported_block_type, 1> usbdump_blocks_supported {
@@ -283,7 +283,7 @@ namespace
             "VCD",
             "vcd",
             nullptr,
-            false,
+            static_cast<VCD_CALLBACK_BOOL_RETURN_TYPE>(false),
 #if VCD_WIRESHARK_VERSION_GE(3, 6)
             BLOCKS_SUPPORTED(usbdump_blocks_supported.data()),
             nullptr,
